@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WHOOTTWHOOOTTT</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: lightblue;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+        }
+        .container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+        }
+        .container img {
+            position: absolute;
+            max-width: 100px; 
+            height: auto;
+            transition: transform 0.5s ease;
+        }
+        .text-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 4rem;
+            font-weight: bold;
+            color: white;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+            z-index: 10;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) { 
+            .container img {
+                max-width: 80px;
+            }
+            .text-overlay {
+                font-size: 3rem;
+            }
+        }
+
+        @media (max-width: 480px) { 
+            .container img {
+                max-width: 60px; 
+            }
+            .text-overlay {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="IMG_2095.jpg" alt="i love you">
+        <img src="IMG_2097.jpg" alt="i love you">
+        <img src="IMG_2095.jpg" alt="i love you">
+        <img src="IMG_2099.jpg" alt="i love you">
+        <img src="IMG_2100.jpg" alt="i love you">
+        <img src="IMG_2101.jpg" alt="i love you">
+        <img src="IMG_4754.jpg" alt="i love you">
+        <img src="IMG_2095.jpg" alt="i love you">
+        <img src="IMG_2095.jpg" alt="i love you">
+        <div class="text-overlay">Yeyyy!!</div>
+    </div>
+    <script>
+        function moveImagesEvenly() {
+            const screenWidth = window.innerWidth;
+            const screenHeight = window.innerHeight;
+
+            const rows = Math.max(2, Math.floor(screenHeight / 200)); 
+            const cols = Math.max(2, Math.floor(screenWidth / 200)); 
+
+            const cellWidth = screenWidth / cols;
+            const cellHeight = screenHeight / rows;
+            const images = document.querySelectorAll(".container img");
+            const shuffledImages = [...images].sort(() => Math.random() - 0.5);
+
+            shuffledImages.forEach((img, index) => {
+                const row = Math.floor(index / cols);
+                const col = index % cols;
+
+                const randomX = col * cellWidth + Math.random() * (cellWidth - img.offsetWidth);
+                const randomY = row * cellHeight + Math.random() * (cellHeight - img.offsetHeight);
+
+                img.style.left = `${randomX}px`;
+                img.style.top = `${randomY}px`;
+            });
+        }
+
+        setInterval(moveImagesEvenly, 3000);
+        moveImagesEvenly();
+
+        window.addEventListener("resize", moveImagesEvenly);
+    </script>
+</body>
+</html>
